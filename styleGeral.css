@@ -1,0 +1,781 @@
+/* Reset e base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* Paleta de cores futurista e ambiental */
+  --primary-green: #00ff88;
+  --secondary-green: #00cc6a;
+  --dark-green: #004d26;
+  --accent-cyan: #00ffff;
+  --accent-blue: #0066ff;
+  --dark-bg: #0a0a0a;
+  --card-bg: rgba(255, 255, 255, 0.05);
+  --glass-bg: rgba(255, 255, 255, 0.1);
+  --text-primary: #ffffff;
+  --text-secondary: #b3b3b3;
+  --gradient-primary: linear-gradient(135deg, #00ff88 0%, #00cc6a 50%, #004d26 100%);
+  --gradient-secondary: linear-gradient(135deg, #00ffff 0%, #0066ff 100%);
+  --shadow-glow: 0 0 20px rgba(0, 255, 136, 0.3);
+  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.3);
+  --border-radius: 16px;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+  font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif;
+  background: var(--dark-bg);
+  background-image: 
+    radial-gradient(circle at 20% 80%, rgba(0, 255, 136, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(0, 102, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(0, 255, 255, 0.05) 0%, transparent 50%);
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* Animação de partículas de fundo */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(2px 2px at 20px 30px, rgba(0, 255, 136, 0.3), transparent),
+    radial-gradient(2px 2px at 40px 70px, rgba(0, 255, 255, 0.2), transparent),
+    radial-gradient(1px 1px at 90px 40px, rgba(0, 102, 255, 0.3), transparent),
+    radial-gradient(1px 1px at 130px 80px, rgba(0, 255, 136, 0.2), transparent);
+  background-repeat: repeat;
+  background-size: 150px 100px;
+  animation: particleFloat 20s linear infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+@keyframes particleFloat {
+  0% { transform: translateY(0px) translateX(0px); }
+  33% { transform: translateY(-100px) translateX(100px); }
+  66% { transform: translateY(-200px) translateX(-100px); }
+  100% { transform: translateY(-300px) translateX(0px); }
+}
+
+/* Cabeçalho futurista */
+header {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  width: 100%;
+  padding: 1px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+
+header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.1), transparent);
+  animation: scanLine 3s infinite;
+}
+
+@keyframes scanLine {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+header img {
+  height: 120px;
+  max-width: 400px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 10px rgba(0, 255, 136, 0.3));
+  transition: var(--transition);
+  position: relative;
+  z-index: 1;
+}
+
+header img:hover {
+  filter: drop-shadow(0 0 20px rgba(0, 255, 136, 0.5));
+  transform: scale(1.05);
+}
+
+header h1 {
+  color: var(--text-primary);
+  font-size: 3.5em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  position: relative;
+  z-index: 1;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 10px rgba(0, 255, 136, 0.5));
+  animation: textGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes textGlow {
+  from { filter: drop-shadow(0 0 10px rgba(0, 255, 136, 0.5)); }
+  to { filter: drop-shadow(0 0 20px rgba(0, 255, 136, 0.8)); }
+}
+
+.home-link {
+  text-decoration: none;
+}
+
+/* Container de cards futurista */
+.cards-container {
+  max-width: 1400px;
+  width: 95%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 30px;
+  padding: 80px 20px;
+  justify-items: center;
+  perspective: 1000px;
+}
+
+/* Card base futurista */
+.card {
+  text-align: center;
+  padding: 40px 30px;
+  width: 100%;
+  max-width: 400px;
+  min-height: 280px;
+  border-radius: var(--border-radius);
+  color: var(--text-primary);
+  text-decoration: none;
+  font-size: 1.3em;
+  font-weight: 600;
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  background: var(--card-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: var(--shadow-card);
+  transform-style: preserve-3d;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--gradient-primary);
+  opacity: 0;
+  transition: var(--transition);
+  z-index: -1;
+}
+
+.card::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: radial-gradient(circle, rgba(0, 255, 136, 0.3) 0%, transparent 70%);
+  transform: translate(-50%, -50%);
+  transition: var(--transition);
+  border-radius: 50%;
+}
+
+.card:hover {
+  transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
+  box-shadow: var(--shadow-glow), var(--shadow-card);
+  border-color: var(--primary-green);
+}
+
+.card:hover::before {
+  opacity: 0.1;
+}
+
+.card:hover::after {
+  width: 200px;
+  height: 200px;
+}
+
+.card h3 {
+  font-size: 1.5em;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 2;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.card p {
+  font-size: 1.1em;
+  line-height: 1.6;
+  position: relative;
+  z-index: 2;
+  opacity: 0.9;
+  font-weight: 400;
+}
+
+/* Cores dos cards futuristas */
+.green { 
+  background: linear-gradient(135deg, rgba(0, 255, 136, 0.1) 0%, rgba(0, 204, 106, 0.1) 100%);
+  border-color: var(--primary-green);
+}
+
+.green:hover {
+  box-shadow: 0 0 30px rgba(0, 255, 136, 0.4), var(--shadow-card);
+}
+
+.pink { 
+  background: linear-gradient(135deg, rgba(255, 100, 100, 0.1) 0%, rgba(255, 150, 50, 0.1) 100%);
+  border-color: #ff6464;
+}
+
+.pink:hover {
+  box-shadow: 0 0 30px rgba(255, 100, 100, 0.4), var(--shadow-card);
+}
+
+.yellow { 
+  background: linear-gradient(135deg, rgba(255, 220, 0, 0.1) 0%, rgba(255, 180, 0, 0.1) 100%);
+  border-color: #ffdc00;
+}
+
+.yellow:hover {
+  box-shadow: 0 0 30px rgba(255, 220, 0, 0.4), var(--shadow-card);
+}
+
+.purple { 
+  background: linear-gradient(135deg, rgba(150, 100, 255, 0.1) 0%, rgba(200, 150, 255, 0.1) 100%);
+  border-color: #9664ff;
+}
+
+.purple:hover {
+  box-shadow: 0 0 30px rgba(150, 100, 255, 0.4), var(--shadow-card);
+}
+
+.blue { 
+  background: linear-gradient(135deg, rgba(0, 102, 255, 0.1) 0%, rgba(0, 150, 255, 0.1) 100%);
+  border-color: var(--accent-blue);
+}
+
+.blue:hover {
+  box-shadow: 0 0 30px rgba(0, 102, 255, 0.4), var(--shadow-card);
+}
+
+/* Ícones minimalistas para os cards */
+.card h3::before {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 20px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  filter: drop-shadow(0 0 10px rgba(0, 255, 136, 0.3));
+  animation: iconFloat 3s ease-in-out infinite alternate;
+}
+
+@keyframes iconFloat {
+  from { transform: translateY(0px); }
+  to { transform: translateY(-5px); }
+}
+
+.card[href*="reciclagem"] h3::before,
+.card[href*="guia-reciclagem"] h3::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300ff88' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 19H6.5a2.5 2.5 0 0 1 0-5H14'/%3E%3Cpath d='M17 5h.5a2.5 2.5 0 0 1 0 5H10'/%3E%3Cpath d='M14 5.5a2 2 0 0 0-4 0 2 2 0 0 0 4 0Z'/%3E%3Cpath d='M14 18.5a2 2 0 0 0-4 0 2 2 0 0 0 4 0Z'/%3E%3C/svg%3E");
+}
+
+.card[href*="pontos"] h3::before,
+.card[href*="pev-ponto-entrega"] h3::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ff6464' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z'/%3E%3Ccircle cx='12' cy='10' r='3'/%3E%3C/svg%3E");
+}
+
+.card[href*="condominios"] h3::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239664ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 21h18'/%3E%3Cpath d='M5 21V7l8-4v18'/%3E%3Cpath d='M19 21V11l-6-4'/%3E%3Cpath d='M9 9v.01'/%3E%3Cpath d='M9 12v.01'/%3E%3Cpath d='M9 15v.01'/%3E%3Cpath d='M9 18v.01'/%3E%3C/svg%3E");
+}
+
+.card[href*="coleta"] h3::before,
+.card[href*="horarios-coleta"] h3::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230066ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect width='18' height='18' x='3' y='4' rx='2' ry='2'/%3E%3Cline x1='16' x2='16' y1='2' y2='6'/%3E%3Cline x1='8' x2='8' y1='2' y2='6'/%3E%3Cline x1='3' x2='21' y1='10' y2='10'/%3E%3C/svg%3E");
+}
+
+.card[href*="reciclaveis"] h3::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffdc00' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 6h18l-2 13H5L3 6Z'/%3E%3Cpath d='M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2'/%3E%3Cline x1='10' x2='10' y1='11' y2='17'/%3E%3Cline x1='14' x2='14' y1='11' y2='17'/%3E%3C/svg%3E");
+}
+
+.card[href*="conheca"] h3::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300ff88' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 2v20'/%3E%3Cpath d='M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6'/%3E%3C/svg%3E");
+}
+
+.card[href*="escolas"] h3::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300ffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M22 10v6M2 10l10-5 10 5-10 5z'/%3E%3Cpath d='M6 12v5c3 3 9 3 12 0v-5'/%3E%3C/svg%3E");
+}
+
+/* Tamanhos especiais */
+.card.big { 
+  font-size: 1.4em;
+  min-height: 320px;
+}
+
+.card.small { 
+  max-width: 350px;
+  min-height: 240px;
+}
+
+.card.full { 
+  grid-column: 1 / -1;
+  max-width: 100%;
+  min-height: 250px;
+}
+
+/* Rodapé futurista */
+footer {
+  width: 100%;
+  text-align: center;
+  padding: 50px 0;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: auto;
+  position: relative;
+}
+
+footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--gradient-primary);
+  animation: borderGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes borderGlow {
+  from { opacity: 0.5; }
+  to { opacity: 1; }
+}
+
+footer img {
+  max-width: 280px;
+  height: auto;
+  filter: brightness(1.1) contrast(1.05);
+  transition: var(--transition);
+  border-radius: 8px;
+  opacity: 0.9;
+}
+
+footer img:hover {
+  transform: scale(1.05);
+  filter: brightness(1.2) contrast(1.1);
+  opacity: 1;
+}
+
+/* Conteúdo principal futurista */
+main.content {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 60px 40px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--border-radius);
+  margin-top: 40px;
+  margin-bottom: 40px;
+  box-shadow: var(--shadow-card);
+  position: relative;
+}
+
+main.content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--gradient-primary);
+  opacity: 0.02;
+  border-radius: var(--border-radius);
+  pointer-events: none;
+}
+
+/* Estilos para páginas internas */
+.page-title {
+  font-size: 3em;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: center;
+  margin-bottom: 40px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  filter: drop-shadow(0 0 10px rgba(0, 255, 136, 0.3));
+}
+
+.section {
+  margin-bottom: 50px;
+  padding: 40px;
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-card);
+  position: relative;
+  transition: var(--transition);
+}
+
+.section:hover {
+  border-color: var(--primary-green);
+  box-shadow: var(--shadow-glow), var(--shadow-card);
+}
+
+.section h2 {
+  color: var(--text-primary);
+  font-size: 2em;
+  margin-bottom: 25px;
+  font-weight: 600;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.section h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: var(--gradient-primary);
+  border-radius: 2px;
+}
+
+.section h3 {
+  color: var(--text-primary);
+  font-size: 1.5em;
+  margin: 25px 0 20px;
+  font-weight: 500;
+}
+
+.section p, .section li {
+  font-size: 1.2em;
+  line-height: 1.8;
+  margin-bottom: 18px;
+  color: var(--text-secondary);
+}
+
+.section ul {
+  padding-left: 30px;
+}
+
+.section li {
+  margin-bottom: 12px;
+  position: relative;
+}
+
+.section li::marker {
+  color: var(--primary-green);
+}
+
+/* Botões futuristas */
+.btn {
+  display: inline-block;
+  padding: 18px 36px;
+  background: var(--gradient-primary);
+  color: var(--text-primary);
+  text-decoration: none;
+  border-radius: var(--border-radius);
+  font-size: 1.2em;
+  font-weight: 600;
+  transition: var(--transition);
+  border: none;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: var(--shadow-card);
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: var(--transition);
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-glow), var(--shadow-card);
+}
+
+.btn:hover::before {
+  left: 100%;
+}
+
+/* Animações de entrada */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.card {
+  animation: fadeInUp 0.8s ease forwards;
+  opacity: 0;
+}
+
+.card:nth-child(1) { animation-delay: 0.1s; }
+.card:nth-child(2) { animation-delay: 0.2s; }
+.card:nth-child(3) { animation-delay: 0.3s; }
+.card:nth-child(4) { animation-delay: 0.4s; }
+.card:nth-child(5) { animation-delay: 0.5s; }
+.card:nth-child(6) { animation-delay: 0.6s; }
+.card:nth-child(7) { animation-delay: 0.7s; }
+
+.section {
+  animation: slideInLeft 0.8s ease forwards;
+  opacity: 0;
+}
+
+.section:nth-child(1) { animation-delay: 0.2s; }
+.section:nth-child(2) { animation-delay: 0.4s; }
+.section:nth-child(3) { animation-delay: 0.6s; }
+
+/* Responsividade futurista */
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 2.5em;
+    letter-spacing: 2px;
+  }
+  
+  .cards-container {
+    grid-template-columns: 1fr;
+    gap: 25px;
+    padding: 60px 20px;
+  }
+  
+  .card {
+    font-size: 1.2em;
+    padding: 35px 25px;
+    min-height: 260px;
+    max-width: 100%;
+  }
+  
+  .card h3 {
+    font-size: 1.4em;
+  }
+  
+  .card h3::before {
+    width: 70px;
+    height: 70px;
+    font-size: 2.2em;
+  }
+  
+  .page-title {
+    font-size: 2.2em;
+  }
+  
+  .section {
+    padding: 30px 25px;
+    margin-bottom: 35px;
+  }
+  
+  .section h2 {
+    font-size: 1.7em;
+  }
+  
+  .section p, .section li {
+    font-size: 1.1em;
+  }
+  
+  main.content {
+    margin: 30px 15px;
+    padding: 40px 25px;
+  }
+}
+
+@media (max-width: 480px) {
+  header h1 {
+    font-size: 2em;
+    letter-spacing: 1px;
+  }
+  
+  .card {
+    font-size: 1.1em;
+    padding: 30px 20px;
+    min-height: 240px;
+  }
+  
+  .card h3::before {
+    width: 60px;
+    height: 60px;
+    font-size: 2em;
+  }
+  
+  main.content {
+    margin: 20px 10px;
+    padding: 30px 20px;
+  }
+  
+  .btn {
+    padding: 15px 30px;
+    font-size: 1.1em;
+  }
+}
+
+/* Acessibilidade futurista */
+.card:focus {
+  outline: 2px solid var(--primary-green);
+  outline-offset: 4px;
+  box-shadow: var(--shadow-glow), var(--shadow-card);
+}
+
+.btn:focus {
+  outline: 2px solid var(--primary-green);
+  outline-offset: 4px;
+}
+
+/* Alto contraste */
+@media (prefers-contrast: high) {
+  :root {
+    --card-bg: rgba(255, 255, 255, 0.15);
+    --glass-bg: rgba(255, 255, 255, 0.2);
+  }
+  
+  .card {
+    border: 2px solid var(--primary-green);
+  }
+  
+  .card h3, .card p {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  }
+}
+
+/* Redução de movimento */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .card:hover {
+    transform: none;
+  }
+}
+
+/* Efeitos especiais para telas maiores */
+@media (min-width: 1200px) {
+  .cards-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .card {
+    max-width: 420px;
+  }
+  
+  /* Efeito holográfico */
+  .card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 30%, rgba(0, 255, 136, 0.1) 50%, transparent 70%);
+    opacity: 0;
+    transition: var(--transition);
+    pointer-events: none;
+  }
+  
+  .card:hover::after {
+    opacity: 1;
+    animation: hologram 1s ease-in-out;
+  }
+  
+  @keyframes hologram {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--dark-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gradient-primary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gradient-secondary);
+}
+
+/* Seleção de texto personalizada */
+::selection {
+  background: var(--primary-green);
+  color: var(--dark-bg);
+}
+
+::-moz-selection {
+  background: var(--primary-green);
+  color: var(--dark-bg);
+}
+
