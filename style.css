@@ -162,20 +162,6 @@ body.light-mode {
 }
 
 /* Cabeçalho futurista */
-header {
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  width: 100%;
-  padding: 1px;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-  box-shadow: var(--shadow-card);
-  transition: var(--transition);
-}
-
 body.light-mode header {
   border: 1px solid rgba(0, 153, 77, 0.25);
   background: var(--header-footer-bg);
@@ -203,15 +189,28 @@ header::before {
   100% { left: 100%; }
 }
 
+header {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  width: 100%;
+  padding: 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+
 header img {
-  height: 120px;
-  max-width: 400px;
+  height: 80px;
+  max-width: 300px;
   object-fit: contain;
   filter: drop-shadow(0 0 10px rgba(0, 255, 136, 0.3));
   transition: var(--transition);
   position: relative;
   z-index: 1;
+  margin: 0 auto;
 }
+
 
 header img:hover {
   filter: drop-shadow(0 0 20px rgba(0, 255, 136, 0.5));
