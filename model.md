@@ -1,19 +1,752 @@
-<button class="theme-toggle" id="themeToggle" aria-label="Alternar tema">
+modelo de css a ser seguido:
+
+obrigatório usar o mesmo header, footer, background e botão modo escuro EM TODOS os HTML
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* Paleta Dark Mode (padrão) */
+  --primary-green: #00ff88;
+  --secondary-green: #00cc6a;
+  --dark-green: #004d26;
+  --accent-cyan: #00ffff;
+  --accent-blue: #0066ff;
+  --dark-bg: #0a0a0a;
+  --card-bg: rgba(255, 255, 255, 0.05);
+  --glass-bg: rgba(255, 255, 255, 0.1);
+  --text-primary: #ffffff;
+  --text-secondary: #b3b3b3;
+  --gradient-primary: linear-gradient(135deg, #00ff88 0%, #00cc6a 50%, #004d26 100%);
+  --gradient-secondary: linear-gradient(135deg, #00ffff 0%, #0066ff 100%);
+  --shadow-glow: 0 0 20px rgba(0, 255, 136, 0.3);
+  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.3);
+  --border-radius: 16px;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --particle-color-1: rgba(0, 255, 136, 0.3);
+  --particle-color-2: rgba(0, 255, 255, 0.2);
+  --particle-color-3: rgba(0, 102, 255, 0.3);
+}
+
+/* Light Mode */
+body.light-mode {
+  --primary-green: #00994d;
+  --secondary-green: #00b359;
+  --dark-green: #004d26;
+  --accent-cyan: #00a3a3;
+  --accent-blue: #0052cc;
+  --dark-bg: #e8e6e1;
+  --card-bg: rgba(248, 246, 243, 0.85);
+  --glass-bg: rgba(0, 153, 77, 0.18);
+  --text-primary: #2a2a2a;
+  --text-secondary: #5a5a5a;
+  --gradient-primary: linear-gradient(135deg, #00994d 0%, #00b359 50%, #00cc6a 100%);
+  --gradient-secondary: linear-gradient(135deg, #00a3a3 0%, #0052cc 100%);
+  --shadow-glow: 0 0 20px rgba(0, 153, 77, 0.35);
+  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.08);
+  --particle-color-1: rgba(0, 153, 77, 0.18);
+  --particle-color-2: rgba(0, 163, 163, 0.12);
+  --particle-color-3: rgba(0, 82, 204, 0.15);
+  --header-footer-bg: rgba(0, 153, 77, 0.35);
+}
+
+body {
+  font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif;
+  background: var(--dark-bg);
+  background-image: 
+    radial-gradient(circle at 20% 80%, rgba(0, 255, 136, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(0, 102, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(0, 255, 255, 0.05) 0%, transparent 50%);
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  line-height: 1.6;
+  overflow-x: hidden;
+  transition: background 0.5s ease, color 0.5s ease;
+}
+
+/* Animação de partículas de fundo */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(2px 2px at 20px 30px, var(--particle-color-1), transparent),
+    radial-gradient(2px 2px at 40px 70px, var(--particle-color-2), transparent),
+    radial-gradient(1px 1px at 90px 40px, var(--particle-color-3), transparent),
+    radial-gradient(1px 1px at 130px 80px, var(--particle-color-1), transparent);
+  background-repeat: repeat;
+  background-size: 150px 100px;
+  animation: particleFloat 20s linear infinite;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.6;
+  transition: opacity 0.5s ease;
+}
+
+body.light-mode::before {
+  opacity: 0.4;
+}
+
+body.light-mode {
+  background-image: 
+    radial-gradient(circle at 20% 80%, rgba(0, 153, 77, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(0, 82, 204, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(0, 163, 163, 0.06) 0%, transparent 50%);
+}
+
+@keyframes particleFloat {
+  0% { transform: translateY(0px) translateX(0px); }
+  33% { transform: translateY(-100px) translateX(100px); }
+  66% { transform: translateY(-200px) translateX(-100px); }
+  100% { transform: translateY(-300px) translateX(0px); }
+}
+
+/* Botão Theme Toggle */
+.theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50px;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: var(--shadow-card);
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 0.9em;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.05);
+  box-shadow: var(--shadow-glow), var(--shadow-card);
+  border-color: var(--primary-green);
+}
+
+.theme-toggle:active {
+  transform: scale(0.95);
+}
+
+.theme-icon {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+
+.theme-icon svg {
+  width: 100%;
+  height: 100%;
+  fill: var(--text-primary);
+  transition: var(--transition);
+}
+
+.theme-toggle:hover .theme-icon {
+  transform: rotate(20deg);
+}
+
+/* Cabeçalho futurista */
+body.light-mode header {
+  border: 1px solid rgba(0, 153, 77, 0.25);
+  background: var(--header-footer-bg);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+}
+
+body.light-mode header::before {
+  background: linear-gradient(90deg, transparent, rgba(0, 153, 77, 0.2), transparent);
+}
+
+header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.1), transparent);
+  animation: scanLine 3s infinite;
+}
+
+@keyframes scanLine {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+header {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  width: 100%;
+  padding: 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+
+header img {
+  height: 160px;
+  max-width: 300px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 10px rgba(0, 255, 136, 0.3));
+  transition: var(--transition);
+  position: relative;
+  z-index: 1;
+  margin: 0 auto;
+}
+
+
+header img:hover {
+  filter: drop-shadow(0 0 20px rgba(0, 255, 136, 0.5));
+  transform: scale(1.05);
+}
+
+.home-link {
+  text-decoration: none;
+}
+
+/* Rodapé profissional */
+footer {
+  width: 100%;
+  padding: 5px 20px 10px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: auto;
+  position: relative;
+  transition: var(--transition);
+}
+
+body.light-mode footer {
+  border-top: 1px solid rgba(0, 153, 77, 0.25);
+  background: var(--header-footer-bg);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+}
+
+footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--gradient-primary);
+  animation: borderGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes borderGlow {
+  from { opacity: 0.5; }
+  to { opacity: 1; }
+}
+
+.footer-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.footer-logo {
+  flex: 0 0 auto;
+}
+
+.footer-logo img {
+  max-width: 200px;
+  height: auto;
+  filter: brightness(1.1) contrast(1.05);
+  transition: var(--transition);
+  border-radius: 8px;
+  opacity: 0.9;
+}
+
+.footer-logo img:hover {
+  transform: scale(1.05);
+  filter: brightness(1.2) contrast(1.1);
+  opacity: 1;
+}
+
+.footer-info {
+  flex: 1 1 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-info h3 {
+  color: var(--text-primary);
+  font-size: 1.3em;
+  font-weight: 700;
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+}
+
+.footer-info p {
+  color: var(--text-secondary);
+  font-size: 1em;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.footer-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer-contact a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-contact a:hover {
+  color: var(--primary-green);
+  transform: translateX(3px);
+}
+
+.footer-social {
+  flex: 0 0 auto;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.social-link {
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  transition: var(--transition);
+  color: var(--text-primary);
+  text-decoration: none;
+  box-shadow: var(--shadow-card);
+}
+
+body.light-mode .social-link {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.social-link:hover {
+  transform: translateY(-5px) scale(1.1);
+  border-color: var(--primary-green);
+  box-shadow: var(--shadow-glow), var(--shadow-card);
+  background: var(--primary-green);
+  color: #000;
+}
+
+.social-link svg {
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
+}
+
+.footer-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--primary-green), transparent);
+  margin: 30px 0 20px;
+  opacity: 0.3;
+}
+
+.footer-bottom {
+  max-width: 1400px;
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 20px;
+}
+
+.footer-bottom p {
+  color: var(--text-secondary);
+  font-size: 0.9em;
+  opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+  footer {
+    padding: 40px 20px 30px;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 30px;
+  }
+
+  .footer-info {
+    align-items: center;
+  }
+
+  .footer-contact {
+    align-items: center;
+  }
+
+  .footer-social {
+    justify-content: center;
+  }
+
+  .footer-logo img {
+    max-width: 160px;
+  }
+}
+
+
+
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Recicla Campo</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon" />
+</head>
+<body>
+  <!-- Botão de alternância de tema -->
+  <button class="theme-toggle" id="themeToggle" aria-label="Alternar tema">
     <span class="theme-icon" id="themeIcon">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79z"></path>
       </svg>
     </span>
     <span id="themeText">Modo Escuro</span>
   </button>
 
+  <!-- Cabeçalho -->
   <header>
-    <a href="../index.html" class="home-link">
-      <img src="../img/reciclaLogo.png" alt="Recicla Campo Logo">
+    <a href="index.html" class="home-link">
+      <img src="img/reciclaLogo.png" alt="Recicla Campo Logo" />
     </a>
   </header>
-  
-  // Script para alternar tema
+
+  <!-- Dashboard com Slides -->
+  <section class="dashboard">
+    <div class="slider-container">
+      <!-- Slide 1 -->
+      <div class="slide active" data-slide="1">
+        <div class="slide-content">
+          <div class="slide-icon">
+            <!-- Ícone do slide -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                 fill="none" stroke="currentColor" stroke-width="2">
+              <rect width="18" height="18" x="3" y="4" rx="2" ry="2" />
+              <line x1="16" x2="16" y1="2" y2="6" />
+              <line x1="8" x2="8" y1="2" y2="6" />
+              <line x1="3" x2="21" y1="10" y2="10" />
+            </svg>
+          </div>
+          <h2>Horários de Coleta</h2>
+          <p>Consulte os dias e horários em que o caminhão de coleta seletiva passa na sua rua</p>
+          <a href="pages/horarios-coleta.html" class="slide-btn">Ver Horários</a>
+        </div>
+
+        <div class="slide-visual">
+          <div class="visual-icon">
+            <!-- Ícone visual -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="250" height="250">
+              <defs>
+                <linearGradient id="calendarGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#22c55e" />
+                  <stop offset="100%" style="stop-color:#16a34a" />
+                </linearGradient>
+                <filter id="shadow">
+                  <feDropShadow dx="0" dy="4" stdDeviation="3" flood-opacity="0.3" />
+                </filter>
+              </defs>
+              <rect x="20" y="30" width="80" height="70" rx="8"
+                    fill="url(#calendarGrad)" filter="url(#shadow)" />
+              <rect x="20" y="30" width="80" height="20" rx="8" fill="#16a34a" />
+              <circle cx="40" cy="25" r="4" fill="#22c55e" />
+              <circle cx="80" cy="25" r="4" fill="#22c55e" />
+              <line x1="35" y1="60" x2="55" y2="60" stroke="white"
+                    stroke-width="3" stroke-linecap="round" />
+              <line x1="65" y1="60" x2="85" y2="60" stroke="white"
+                    stroke-width="3" stroke-linecap="round" />
+              <line x1="35" y1="75" x2="55" y2="75" stroke="white"
+                    stroke-width="3" stroke-linecap="round" />
+              <line x1="65" y1="75" x2="85" y2="75" stroke="white"
+                    stroke-width="3" stroke-linecap="round" />
+              <line x1="35" y1="90" x2="55" y2="90" stroke="white"
+                    stroke-width="3" stroke-linecap="round" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 2 -->
+      <div class="slide" data-slide="2">
+        <div class="slide-content">
+          <div class="slide-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                 fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z" />
+              <circle cx="12" cy="10" r="3" />
+            </svg>
+          </div>
+          <h2>Pontos de Entrega Voluntária</h2>
+          <p>Encontre os locais para descarte gratuito de resíduos especiais e volumosos</p>
+          <a href="pages/pev-ponto-entrega.html" class="slide-btn">Encontrar Pontos</a>
+        </div>
+
+        <div class="slide-visual">
+          <div class="visual-icon">
+            <!-- Ícone visual -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="250" height="250">
+              <defs>
+                <linearGradient id="pinGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#22c55e" />
+                  <stop offset="100%" style="stop-color:#16a34a" />
+                </linearGradient>
+                <filter id="shadow2">
+                  <feDropShadow dx="0" dy="4" stdDeviation="3" flood-opacity="0.3" />
+                </filter>
+              </defs>
+              <path d="M60 20C75 20 85 30 85 45C85 65 60 90 60 90S35 65 35 45C35 30 45 20 60 20Z"
+                    fill="url(#pinGrad)" filter="url(#shadow2)" />
+              <circle cx="60" cy="45" r="12" fill="white" />
+              <circle cx="60" cy="45" r="6" fill="#16a34a" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 3 -->
+      <div class="slide" data-slide="3">
+        <div class="slide-content">
+          <div class="visual-icon">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="250" height="250">
+    <defs>
+      <linearGradient id="recycleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#22c55e;stop-opacity:1" />
+        <stop offset="100%" style="stop-color:#16a34a;stop-opacity:1" />
+      </linearGradient>
+      <filter id="shadow3">
+        <feDropShadow dx="0" dy="3" stdDeviation="3" flood-opacity="0.25"/>
+      </filter>
+    </defs>
+
+    <g transform="scale(6.4)" filter="url(#shadow3)" fill="url(#recycleGrad)">
+      <path d="M7.375,6.504C6.234,5.85,5.094,5.195,3.954,4.541C4.563,3.352,5.306,2.16,6.52,0.969
+        c0.15-0.16,0.347-0.265,0.59-0.314h0.258L7.55,0.663c0.599,0.1,1.179,0.891,1.48,1.338
+        C9.267,2.406,9.494,2.816,9.711,3.23L7.375,6.504z M9.322,1.818c0.548,0.941,1.065,1.916,1.512,2.957L9.021,5.818l5.258,0.504
+        l2.213-4.805l-1.83,1.053c-0.498-1.012-1.133-1.854-2.096-2.285C10.84,0.293,9.113,0.301,7.385,0.31
+        C8.069,0.284,8.706,0.903,9.322,1.818z M13.34,8.673l0.021-0.029v0.072l1.351,2.875
+        c0.546,0.02,1.093,0.022,1.64,0.016c0.566-0.047,1.619-0.176,1.946-0.717c0.013-0.019,0.021-0.037,0.032-0.056l0.133-0.239
+        c0-0.107-0.015-0.216-0.047-0.318c-0.443-1.641-1.117-2.871-1.855-3.986c-1.129,0.674-2.259,1.346-3.388,2.021L13.34,8.673z
+        M16.366,11.95c-1.089,0.019-2.19-0.013-3.317-0.131l-0.021-2.093l-3.014,4.336l3.104,4.285l-0.021-2.11
+        c1.125,0.063,2.17-0.08,3.02-0.705c0.839-1.511,1.678-3.021,2.518-4.529C18.318,11.611,17.465,11.861,16.366,11.95z
+        M5.364,12.251c-0.236,0.455-0.459,0.916-0.674,1.386c-0.204,0.532-0.541,1.537-0.194,2.065c0.012,0.019,0.024,0.035,0.037,0.053
+        l0.164,0.229c0.138,0.098,0.287,0.154,0.444,0.176c1.673,0.311,3.073,0.23,4.397,0.045c-0.121-1.309-0.242-2.619-0.364-3.928
+        L5.364,12.251z M4.373,13.501c0.454-0.987,0.954-1.971,1.546-2.938l1.898,0.884l-2.614-4.59L0,7.811L1.914,8.7
+        c-0.542,0.992-0.863,1.994-0.664,3.028c1,1.41,2,2.818,3.002,4.226C3.838,15.409,3.979,14.532,4.373,13.501z"/>
+    </g>
+  </svg>
+</div>
+          <h2>Guia de Reciclagem</h2>
+          <p>Aprenda o que pode e não pode ser reciclado em Campo Mourão</p>
+          <a href="pages/guia-reciclagem.html" class="slide-btn">Ver Guia</a>
+        </div>
+
+        <div class="slide-visual">
+          <div class="visual-icon">
+            <!-- Ícone visual reciclável -->
+            [SVG do ícone de reciclagem aqui - mantido igual]
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 4 -->
+      <div class="slide" data-slide="4">
+        <div class="slide-content">
+          <div class="slide-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                 fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z" />
+              <circle cx="12" cy="10" r="3" />
+            </svg>
+          </div>
+          <h2>Receba informações no WhatsApp</h2>
+          <p>Com o ReciclaBot você pode ter as informações de coleta no seu bairro na ponta da sua mão! Gostamos de praticidade.</p>
+          <a href="link-do-zap" class="slide-btn">Falar com o ReciclaBot</a>
+        </div>
+      </div>
+
+      <!-- Navegação dos slides -->
+      <div class="slider-nav">
+        <button class="nav-btn prev" aria-label="Slide anterior">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+               fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
+        </button>
+
+        <div class="slider-dots">
+          <span class="dot active" data-slide="1"></span>
+          <span class="dot" data-slide="2"></span>
+          <span class="dot" data-slide="3"></span>
+          <span class="dot" data-slide="4"></span>
+        </div>
+
+        <button class="nav-btn next" aria-label="Próximo slide">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+               fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="quick-access">
+      <h3>Acesso Rápido</h3>
+      <div class="quick-cards">
+        <a href="pages/condominios.html" class="quick-card">
+          <div class="quick-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="48" height="48">
+              <defs>
+                <linearGradient id="buildingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#22c55e;stop-opacity:1" />
+                  <stop offset="100%" style="stop-color:#16a34a;stop-opacity:1" />
+                </linearGradient>
+              </defs>
+              <rect x="20" y="15" width="40" height="50" rx="3" fill="url(#buildingGrad)"/>
+              <rect x="25" y="22" width="8" height="8" fill="white" opacity="0.8"/>
+              <rect x="37" y="22" width="8" height="8" fill="white" opacity="0.8"/>
+              <rect x="47" y="22" width="8" height="8" fill="white" opacity="0.8"/>
+              <rect x="25" y="35" width="8" height="8" fill="white" opacity="0.8"/>
+              <rect x="37" y="35" width="8" height="8" fill="white" opacity="0.8"/>
+              <rect x="47" y="35" width="8" height="8" fill="white" opacity="0.8"/>
+              <rect x="25" y="48" width="8" height="17" fill="white" opacity="0.9"/>
+            </svg>
+          </div>
+          <span>Condomínios</span>
+        </a>
+        <a href="pages/conheca.html" class="quick-card">
+          <div class="quick-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="48" height="48">
+              <defs>
+                <linearGradient id="bulbGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#22c55e;stop-opacity:1" />
+                  <stop offset="100%" style="stop-color:#16a34a;stop-opacity:1" />
+                </linearGradient>
+              </defs>
+              <circle cx="40" cy="30" r="12" fill="url(#bulbGrad)"/>
+              <path d="M32 40 L32 50 L48 50 L48 40" fill="url(#bulbGrad)"/>
+              <rect x="35" y="50" width="10" height="8" rx="2" fill="#16a34a"/>
+              <line x1="40" y1="15" x2="40" y2="10" stroke="#22c55e" stroke-width="2" stroke-linecap="round"/>
+              <line x1="25" y1="20" x2="21" y2="16" stroke="#22c55e" stroke-width="2" stroke-linecap="round"/>
+              <line x1="55" y1="20" x2="59" y2="16" stroke="#22c55e" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <span>Sobre o Projeto</span>
+        </a>
+        <a href="pages/escolas.html" class="quick-card">
+         <div class="quick-icon">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="48" height="48">
+    <defs>
+      <linearGradient id="capGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#22c55e;stop-opacity:1" />
+        <stop offset="100%" style="stop-color:#16a34a;stop-opacity:1" />
+      </linearGradient>
+      <filter id="shadowCap">
+        <feDropShadow dx="0" dy="2" stdDeviation="2" flood-opacity="0.25"/>
+      </filter>
+    </defs>
+
+    <g filter="url(#shadowCap)">
+      <!-- Aba superior do chapéu -->
+      <polygon points="40,15 10,27 40,39 70,27" fill="url(#capGrad)" />
+
+      <!-- Faixa central -->
+      <rect x="15" y="27" width="50" height="3" rx="1.5" fill="url(#capGrad)" />
+
+      <!-- Base do chapéu -->
+      <rect x="34" y="39" width="12" height="14" rx="2" fill="#15803d" />
+
+      <!-- Cordão lateral -->
+      <line x1="65" y1="28" x2="65" y2="46" stroke="#22c55e" stroke-width="2" stroke-linecap="round" />
+
+      <!-- Pompom -->
+      <circle cx="65" cy="50" r="3.5" fill="#16a34a" />
+    </g>
+  </svg>
+</div>
+
+          <span>Educação Ambiental</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  </section>
+
+  <!-- Rodapé -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">
+        <img src="img/nexwer.png" alt="Nexwer Solutions" />
+      </div>
+
+      <div class="footer-info">
+        <h3>Recicla Campo</h3>
+        <div class="footer-contact">
+          <p>Transformando Campo Mourão em uma cidade mais sustentável</p>
+          <p>através da reciclagem e educação ambiental.</p>
+        </div>
+      </div>
+
+      <div class="footer-social">
+        <a href="https://instagram.com/nexwer.jr" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram Nexwer">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="footer-divider"></div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2025 Recicla Campo - Nexwer Solutions. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+     // Script para alternar tema
     const themeToggle = document.getElementById('themeToggle');
     const themeIcon = document.getElementById('themeIcon');
     const themeText = document.getElementById('themeText');
@@ -55,43 +788,69 @@
         localStorage.setItem('theme', 'dark');
       }
     });
-   
 
+    // Script do Slider
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.dot');
+    const prevBtn = document.querySelector('.nav-btn.prev');
+    const nextBtn = document.querySelector('.nav-btn.next');
+    let currentSlide = 0;
+    let autoplayInterval;
 
-
-
-
- <footer>
-    <div class="footer-content">
-      <div class="footer-logo">
-        <img src="../img/nexwer.png" alt="Nexwer Solutions" />
-      </div>
-
-      <div class="footer-info">
-        <h3>Recicla Campo</h3>
-        <div class="footer-contact">
-          <p>Transformando Campo Mourão em uma cidade mais sustentável</p>
-          <p>através da reciclagem e educação ambiental.</p>
-        </div>
-      </div>
-
-      <div class="footer-social">
-        <a href="https://instagram.com/nexwer.jr" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram Nexwer">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-          </svg>
-        </a>
-      </div>
-    </div>
-
-    <div class="footer-divider"></div>
-
-    <div class="footer-bottom">
-      <p>&copy; 2025 Recicla Campo - Nexwer Solutions. Todos os direitos reservados.</p>
-    </div>
-  </footer>
-
-
-
- <!-- Botão de alternância de tema -->
+    function showSlide(index) {
+      slides.forEach(slide => slide.classList.remove('active'));
+      dots.forEach(dot => dot.classList.remove('active'));
       
+      slides[index].classList.add('active');
+      dots[index].classList.add('active');
+    }
+
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % slides.length;
+      showSlide(currentSlide);
+    }
+
+    function prevSlide() {
+      currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+      showSlide(currentSlide);
+    }
+
+    function startAutoplay() {
+      autoplayInterval = setInterval(nextSlide, 7000);
+    }
+
+    function stopAutoplay() {
+      clearInterval(autoplayInterval);
+    }
+
+    // Event listeners
+    nextBtn.addEventListener('click', () => {
+      stopAutoplay();
+      nextSlide();
+      startAutoplay();
+    });
+
+    prevBtn.addEventListener('click', () => {
+      stopAutoplay();
+      prevSlide();
+      startAutoplay();
+    });
+
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        stopAutoplay();
+        currentSlide = index;
+        showSlide(currentSlide);
+        startAutoplay();
+      });
+    });
+
+    // Pausar autoplay ao passar o mouse
+    document.querySelector('.slider-container').addEventListener('mouseenter', stopAutoplay);
+    document.querySelector('.slider-container').addEventListener('mouseleave', startAutoplay);
+
+    // Iniciar autoplay
+    startAutoplay();
+  </script>
+</body>
+</html>

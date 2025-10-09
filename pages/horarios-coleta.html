@@ -28,79 +28,84 @@
     <h1 class="page-title">Horários de Coleta em Campo Mourão</h1>
 
     <div class="section">
-      <h2>♻️ Coleta Seletiva (Resíduos Recicláveis)</h2>
-      <p><strong>Horário:</strong> A partir das 8:00 horas</p>
+       <div class="container">
+    <h2>Qual o seu bairro?</h2>
+    <p class="subtitle">Digite para buscar entre os bairros de Campo Mourão</p>
+    
+    <div class="search-container">
+      <input 
+        type="text" 
+        class="search-input" 
+        id="bairroInput" 
+        placeholder="Ex: Centro, São Pedro..."
+        autocomplete="off"
+      >
+      <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"></circle>
+        <path d="m21 21-4.35-4.35"></path>
+      </svg>
+      <button class="clear-btn" id="clearBtn">✕</button>
       
-      <h3>🗓️ Quarta-feira e Sábado</h3>
-      <p><strong>Bairros atendidos:</strong></p>
-      <p>Centro, São Pedro, Curitiba, São Sebastião, Santa Nilce I, Vila Urupês, Zoraide, São João, Paraíso do Campo, Joana D'Arc, Villaggio Trombini, Aurora, Ana Elisa, Constantino, Antonio Toledo Silveira, Vila Guarujá e Distrito de Piquirivaí.</p>
-
-      <h3>🗓️ Segunda e Sexta-feira</h3>
-      <p><strong>Bairros atendidos:</strong></p>
-      <p>Conrado, Isabel, Três Marias, Maria Clara, Ilha Bela, Brasília, Corinthians, Nossa Senhora Aparecida, Albuquerque, San Marino, Kimberlim, Village das Hortênsias, Parigot de Souza, Paulista, Aeroporto, Flor do Campo, Condor, Vila Nova, Montes Claros, Diamante Azul, Tropical I e II, Avelino Piacentini, América, Silvana, José Richa, Esperança, Mário Figueiredo, Batel, Santa Cruz, Modelo, Cidade Nova, Santa Nilce II, Mundo Novo, Verdes Campos, Alvorada, Bandeirantes, Piacentini, Cidade Alta, Antilhas, Primavera, Serrado do Campo e Cj. Milton de Paula Xavier, Sol Nascente e Jardim Imperial.</p>
-
-      <h3>🗓️ Terça e Quinta-feira</h3>
-      <p><strong>Bairros atendidos:</strong></p>
-      <p>Laura, Flórida, Country Clube, Vila Teixeira, Lourdes, Shangrilá, Flora I e II, Gutierrez, Vitória Régia, Residencial do Lago, Araucária, Casali, Botânico, Marino Emer, Maia I e II, Capricórnio, Copacabana, Orly, Vila Rio Grande, Tomasi, Lopes, Voidelo, Ione, Alcântara, Horizonte, J Kennedy, Cidade Verde, Vitória, Lar Paraná, Europa, Vila Cândida, Indianópolis, Pio XII, Milton Luiz Pereira, Tancredo Neves, Mendes, Parque Verde, Acácias, São Francisco, Maria Barleta, Ipê, Damasco, Fernando, Paulino, São Luiz e Parque Industrial.</p>
-
-      <h3>🗓️ Frequência Mensal</h3>
-      <p><strong>Bairros atendidos:</strong></p>
-      <p>Barreiro das Frutas, Boa Esperança, Vila Rural, Usina Mourão Alto Alegre, Santa Lúcia e São Benedito.</p>
+      <div class="suggestions" id="suggestions"></div>
     </div>
 
-    <div class="section">
-      <h2>🗑️ Coleta Comum (Resíduos Orgânicos)</h2>
-      
-      <h3>🌙 Setor Noturno (18:00 horas) - Segunda a Sábado</h3>
-      <p>Centro, São Pedro, Curitiba, São Sebastião, Santa Nilce I, Urupês, Zoraide, São João, Paraíso do Campo, Joana D'Arc, Aurora, Ana Elisa, Constantino e Antonio Toledo Silveira.</p>
-
-      <h3>☀️ Setor Diurno Alternado (7:00 horas) - Segunda, Quarta e Sexta</h3>
-      <p>Lar Paraná, Cândida, Indianópolis, Pio XII, Milton Luiz Pereira, Tancredo Neves, Mendes, Parque Verde, Europa, Acácias, São Francisco, Maria Barleta, Ipê, Damasco, Fernando, Paulino, São Luiz e Parque Industrial, Copacabana I e II, Orly, Rio Grande, Tomasi, Lopes, Voidelo, Ione, Alcântara, Horizonte, J Kennedy, Cidade Verde Vila Rural e Vitória.</p>
-
-      <h3>🌅 Setor Diurno Alternado (17:00 horas) - Segunda, Quarta e Sexta</h3>
-      <p>Laura, Flórida, Country Clube, Teixeira, Lourdes, Shangrilá, Flora I e II, Gutierrez, Vitória Régia, Residencial do Lago, Araucária, Casali, Botânico I e II, Marino Emer, Maia I e II, Capricórnio.</p>
-
-      <h3>☀️ Setor Diurno Alternado (7:00 horas) - Terça, Quinta e Sábado</h3>
-      <p>Cidade Nova, Fortunato Perdoncini, Santa Nilce II, Verdes Campos, Alvorada, Bandeirantes, Piacentini, Cidade Alta, Mundo Novo, Antilhas, Primavera, Modelo, Cj. Milton de Paula Walter, Santa Cruz, Batel I e II, Mario Figueiredo, Esperança, José Richa, Parigot de Souza, Paulista, Aeroporto, Flor do Campo, Condor, Vila Nova, Montes Claros, Diamante Azul, Tropical I e II, Avelino Piacentini, América, Serrado do Campo e Silvana.</p>
-
-      <h3>🌅 Setor Diurno Alternado (17:00 horas) - Terça, Quinta e Sábado</h3>
-      <p>Conrado, Isabel, Três Marias, Trombini, Maria Clara, Ilha Bela, Brasília, Corinthians, Nossa Senhora Aparecida, Albuquerque, San Marino, Kimberlim, Village das Hortênsias.</p>
-
-      <h3>🏞️ Setores Especiais</h3>
-      <p><strong>Terça e Sexta-feira (7:00 horas):</strong> Distrito de Piquirivaí</p>
-      <p><strong>Segunda e Sexta-feira (7:00 horas):</strong> Usina Mourão e Parque Lago Azul</p>
-      <p><strong>Última quinta-feira de cada mês:</strong> Barreiro das Frutas, São Benedito, Santa Lúcia, Alto Alegre e Fazenda Boa Esperança</p>
+    <div class="selected-bairro" id="selectedBairro">
+      <strong>Bairro selecionado:</strong> <span id="bairroName"></span>
     </div>
+  </div>
 
-    <div class="section">
-      <h2>📋 Como Preparar seus Resíduos</h2>
-      
-      <h3>♻️ Para Coleta Seletiva:</h3>
-      <ul>
-        <li>Separe os materiais recicláveis dos orgânicos</li>
-        <li>Lave embalagens para remover restos de comida</li>
-        <li>Seque os materiais antes de colocar no saco</li>
-        <li>Use sacos transparentes ou de cor clara</li>
-        <li>Coloque na calçada no dia e horário corretos</li>
-        <li>Não misture recicláveis com lixo orgânico</li>
-      </ul>
 
-      <h3>🗑️ Para Coleta Comum:</h3>
-      <ul>
-        <li>Embale restos de comida em sacos bem fechados</li>
-        <li>Use sacos escuros para lixo orgânico</li>
-        <li>Não coloque materiais cortantes soltos</li>
-        <li>Amarre bem os sacos para evitar vazamentos</li>
-      </ul>
+
+       <div class="result-card seletiva">
+        <h2>♻️ Coleta Seletiva (Recicláveis)</h2>
+        <div class="info-row">
+          <strong>🕐 Horário:</strong>
+          <p id="horarioSeletiva"></p>
+        </div>
+        <div class="info-row">
+          <strong>📅 Dias da Semana:</strong>
+          <p id="diasSeletiva"></p>
+        </div>
+      </div>
+
+      <div class="result-card comum">
+        <h2>🗑️ Coleta Comum (Orgânicos)</h2>
+        <div class="info-row">
+          <strong>🕐 Horário:</strong>
+          <p id="horarioComum"></p>
+        </div>
+        <div class="info-row">
+          <strong>📅 Dias da Semana:</strong>
+          <p id="diasComum"></p>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <div class="section">
-      <h2>📞 Contatos Importantes</h2>
-      <p><strong>Secretaria de Meio Ambiente e Bem-estar Animal (SEMA)</strong></p>
-      <p>📞 Telefone: (44) 3518-1000</p>
-      <p>📍 Endereço: Rua José Bonifácio, 1370 - Centro</p>
-      <p>🕐 Horário: Segunda a Sexta, 8h às 11h30 e 13h30 às 17h</p>
+    <div class="info-cards">
+      <div class="info-card green">
+        <div class="card-icon">♻️</div>
+        <h3>Coleta Seletiva</h3>
+        <ul>
+          <li>Separe recicláveis dos orgânicos</li>
+          <li>Lave e seque as embalagens</li>
+          <li>Use sacos transparentes</li>
+          <li>Coloque no dia e horário corretos</li>
+          <li>Não misture com orgânicos</li>
+        </ul>
+      </div>
+
+
+      <div class="info-card purple">
+        <div class="card-icon">📞</div>
+        <h3>Contato SEMA</h3>
+        <p><strong>Secretaria de Meio Ambiente</strong></p>
+        <p>📞 (44) 3518-1000</p>
+        <p>📍 Rua José Bonifácio, 1370</p>
+        <p>🕐 Seg-Sex: 8h-11h30<br>13h30-17h</p>
+      </div>
     </div>
+  </div>
 
     <div style="text-align: center; margin-top: 40px;">
   <a href="../index.html" class="btn">🏠 Voltar ao Início</a>
@@ -179,6 +184,254 @@
         localStorage.setItem('theme', 'dark');
       }
     });
+    //bairro search
+    const bairros = [
+      "Acácias", "Aeroporto", "Albuquerque", "Alcântara", "Alvorada", "América", 
+      "Ana Elisa", "Antilhas", "Antonio Toledo Silveira", "Araucária", "Aurora", 
+      "Avelino Piacentini", "Bandeirantes", "Barreiro das Frutas", "Batel", 
+      "Boa Esperança", "Botânico", "Brasília", "Capricórnio", "Casali", "Centro", 
+      "Cidade Alta", "Cidade Nova", "Cidade Verde", "Cj. Milton de Paula Xavier", 
+      "Condor", "Conrado", "Constantino", "Copacabana", "Corinthians", "Country Clube", 
+      "Curitiba", "Damasco", "Diamante Azul", "Distrito de Piquirivaí", "Esperança", 
+      "Europa", "Fernando", "Flora I e II", "Flor do Campo", "Flórida", "Gutierrez", 
+      "Horizonte", "Ilha Bela", "Indianópolis", "Ione", "Ipê", "Isabel", "J Kennedy", 
+      "Jardim Imperial", "Joana D'Arc", "José Richa", "Kimberlim", "Lar Paraná", 
+      "Laura", "Lopes", "Lourdes", "Maia I e II", "Maria Barleta", "Maria Clara", 
+      "Marino Emer", "Mário Figueiredo", "Mendes", "Milton Luiz Pereira", "Modelo", 
+      "Montes Claros", "Mundo Novo", "Nossa Senhora Aparecida", "Orly", 
+      "Paraíso do Campo", "Parigot de Souza", "Parque Industrial", "Parque Verde", 
+      "Paulina", "Paulino", "Paulista", "Piacentini", "Pio XII", "Primavera", 
+      "Residencial do Lago", "San Marino", "Santa Cruz", "Santa Lúcia", 
+      "Santa Nilce I", "Santa Nilce II", "São Benedito", "São Francisco", "São João", 
+      "São Luiz", "São Pedro", "São Sebastião", "Serrado do Campo", "Shangrilá", 
+      "Silvana", "Sol Nascente", "Tancredo Neves", "Tomasi", "Três Marias", 
+      "Tropical I e II", "Usina Mourão Alto Alegre", "Verdes Campos", "Vila Cândida", 
+      "Vila Guarujá", "Vila Nova", "Vila Rio Grande", "Vila Rural", "Vila Teixeira", 
+      "Vila Urupês", "Village das Hortênsias", "Villaggio Trombini", "Vitória", 
+      "Vitória Régia", "Voidelo", "Zoraide"
+    ];
+
+    const input = document.getElementById('bairroInput');
+    const suggestionsBox = document.getElementById('suggestions');
+    const selectedBox = document.getElementById('selectedBairro');
+    const bairroName = document.getElementById('bairroName');
+    const clearBtn = document.getElementById('clearBtn');
+    let currentFocus = -1;
+
+    input.addEventListener('input', function() {
+      const value = this.value.trim().toLowerCase();
+      suggestionsBox.innerHTML = '';
+      currentFocus = -1;
+
+      // Mostra/esconde botão limpar
+      clearBtn.style.display = value ? 'block' : 'none';
+
+      if (value.length < 2) {
+        suggestionsBox.classList.remove('show');
+        return;
+      }
+
+      const filtered = bairros.filter(b => 
+        b.toLowerCase().includes(value)
+      );
+
+      if (filtered.length === 0) {
+        suggestionsBox.innerHTML = '<div class="no-results">Nenhum bairro encontrado</div>';
+        suggestionsBox.classList.add('show');
+        return;
+      }
+
+      filtered.forEach(b => {
+        const item = document.createElement('div');
+        item.className = 'suggestion-item';
+        
+        // Destaca o texto buscado
+        const regex = new RegExp(`(${value})`, 'gi');
+        item.innerHTML = b.replace(regex, '<span class="highlight">$1</span>');
+        
+        item.addEventListener('click', () => selectBairro(b));
+        suggestionsBox.appendChild(item);
+      });
+
+      suggestionsBox.classList.add('show');
+    });
+
+    // Navegação por teclado
+    input.addEventListener('keydown', function(e) {
+      const items = suggestionsBox.querySelectorAll('.suggestion-item');
+      
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        currentFocus++;
+        addActive(items);
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        currentFocus--;
+        addActive(items);
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        if (currentFocus > -1 && items[currentFocus]) {
+          items[currentFocus].click();
+        }
+      } else if (e.key === 'Escape') {
+        suggestionsBox.classList.remove('show');
+      }
+    });
+
+    function addActive(items) {
+      if (!items.length) return;
+      removeActive(items);
+      
+      if (currentFocus >= items.length) currentFocus = 0;
+      if (currentFocus < 0) currentFocus = items.length - 1;
+      
+      items[currentFocus].classList.add('active');
+      items[currentFocus].scrollIntoView({ block: 'nearest' });
+    }
+
+    function removeActive(items) {
+      items.forEach(item => item.classList.remove('active'));
+    }
+
+    function selectBairro(bairro) {
+      input.value = bairro;
+      bairroName.textContent = bairro;
+      selectedBox.classList.add('show');
+      suggestionsBox.classList.remove('show');
+      clearBtn.style.display = 'block';
+      
+      // Aqui você pode fazer o que quiser com o bairro selecionado
+      console.log('Bairro selecionado:', bairro);
+    }
+
+    clearBtn.addEventListener('click', () => {
+      input.value = '';
+      input.focus();
+      suggestionsBox.classList.remove('show');
+      selectedBox.classList.remove('show');
+      clearBtn.style.display = 'none';
+    });
+
+    // Fecha sugestões ao clicar fora
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.search-container')) {
+        suggestionsBox.classList.remove('show');
+      }
+    });
+
+    //if and else resultados do select
+    // COLETA SELETIVA
+      // Quarta e Sábado
+      if (['centro', 'são pedro', 'curitiba', 'são sebastião', 'santa nilce i', 'vila urupês', 
+           'zoraide', 'são joão', 'paraíso do campo', 'joana d\'arc', 'villaggio trombini', 
+           'aurora', 'ana elisa', 'constantino', 'antonio toledo silveira', 'vila guarujá', 
+           'distrito de piquirivaí'].includes(b)) {
+        seletiva = { horario: 'A partir das 8:00 horas', dias: 'Quarta-feira e Sábado' };
+      }
+      // Segunda e Sexta
+      else if (['conrado', 'isabel', 'três marias', 'maria clara', 'ilha bela', 'brasília', 
+                'corinthians', 'nossa senhora aparecida', 'albuquerque', 'san marino', 'kimberlim', 
+                'village das hortênsias', 'parigot de souza', 'paulista', 'aeroporto', 
+                'flor do campo', 'condor', 'vila nova', 'montes claros', 'diamante azul', 
+                'tropical i e ii', 'avelino piacentini', 'américa', 'silvana', 'josé richa', 
+                'esperança', 'mário figueiredo', 'batel', 'santa cruz', 'modelo', 'cidade nova', 
+                'santa nilce ii', 'mundo novo', 'verdes campos', 'alvorada', 'bandeirantes', 
+                'piacentini', 'cidade alta', 'antilhas', 'primavera', 'serrado do campo', 
+                'cj. milton de paula xavier', 'sol nascente', 'jardim imperial'].includes(b)) {
+        seletiva = { horario: 'A partir das 8:00 horas', dias: 'Segunda-feira e Sexta-feira' };
+      }
+      // Terça e Quinta
+      else if (['laura', 'flórida', 'country clube', 'vila teixeira', 'lourdes', 'shangrilá', 
+                'flora i e ii', 'gutierrez', 'vitória régia', 'residencial do lago', 'araucária', 
+                'casali', 'botânico', 'marino emer', 'maia i e ii', 'capricórnio', 'copacabana', 
+                'orly', 'vila rio grande', 'tomasi', 'lopes', 'voidelo', 'ione', 'alcântara', 
+                'horizonte', 'j kennedy', 'cidade verde', 'vitória', 'lar paraná', 'europa', 
+                'vila cândida', 'indianópolis', 'pio xii', 'milton luiz pereira', 'tancredo neves', 
+                'mendes', 'parque verde', 'acácias', 'são francisco', 'maria barleta', 'ipê', 
+                'damasco', 'fernando', 'paulino', 'são luiz', 'parque industrial'].includes(b)) {
+        seletiva = { horario: 'A partir das 8:00 horas', dias: 'Terça-feira e Quinta-feira' };
+      }
+      // Frequência Mensal
+      else if (['barreiro das frutas', 'boa esperança', 'vila rural', 'usina mourão', 
+                'alto alegre', 'santa lúcia', 'são benedito'].includes(b)) {
+        seletiva = { horario: 'A partir das 8:00 horas', dias: 'Frequência Mensal' };
+      }
+
+      // COLETA COMUM
+      // Setor Noturno (18:00) - Segunda a Sábado
+      if (['centro', 'são pedro', 'curitiba', 'são sebastião', 'santa nilce i', 'urupês', 
+           'zoraide', 'são joão', 'paraíso do campo', 'joana d\'arc', 'aurora', 'ana elisa', 
+           'constantino', 'antonio toledo silveira'].includes(b)) {
+        comum = { horario: '18:00 horas', dias: 'Segunda a Sábado' };
+      }
+      // Setor Diurno (7:00) - Segunda, Quarta e Sexta
+      else if (['lar paraná', 'cândida', 'indianópolis', 'pio xii', 'milton luiz pereira', 
+                'tancredo neves', 'mendes', 'parque verde', 'europa', 'acácias', 'são francisco', 
+                'maria barleta', 'ipê', 'damasco', 'fernando', 'paulino', 'são luiz', 
+                'parque industrial', 'copacabana', 'orly', 'rio grande', 'tomasi', 'lopes', 
+                'voidelo', 'ione', 'alcântara', 'horizonte', 'j kennedy', 'cidade verde', 
+                'vila rural', 'vitória'].includes(b)) {
+        comum = { horario: '7:00 horas', dias: 'Segunda, Quarta e Sexta-feira' };
+      }
+      // Setor Diurno (17:00) - Segunda, Quarta e Sexta
+      else if (['laura', 'flórida', 'country clube', 'teixeira', 'lourdes', 'shangrilá', 
+                'flora i e ii', 'gutierrez', 'vitória régia', 'residencial do lago', 'araucária', 
+                'casali', 'botânico', 'marino emer', 'maia i e ii', 'capricórnio'].includes(b)) {
+        comum = { horario: '17:00 horas', dias: 'Segunda, Quarta e Sexta-feira' };
+      }
+      // Setor Diurno (7:00) - Terça, Quinta e Sábado
+      else if (['cidade nova', 'fortunato perdoncini', 'santa nilce ii', 'verdes campos', 
+                'alvorada', 'bandeirantes', 'piacentini', 'cidade alta', 'mundo novo', 'antilhas', 
+                'primavera', 'modelo', 'cj. milton de paula walter', 'santa cruz', 'batel', 
+                'mário figueiredo', 'esperança', 'josé richa', 'parigot de souza', 'paulista', 
+                'aeroporto', 'flor do campo', 'condor', 'vila nova', 'montes claros', 
+                'diamante azul', 'tropical i e ii', 'avelino piacentini', 'américa', 
+                'serrado do campo', 'silvana'].includes(b)) {
+        comum = { horario: '7:00 horas', dias: 'Terça, Quinta e Sábado' };
+      }
+      // Setor Diurno (17:00) - Terça, Quinta e Sábado
+      else if (['conrado', 'isabel', 'três marias', 'trombini', 'maria clara', 'ilha bela', 
+                'brasília', 'corinthians', 'nossa senhora aparecida', 'albuquerque', 'san marino', 
+                'kimberlim', 'village das hortênsias'].includes(b)) {
+        comum = { horario: '17:00 horas', dias: 'Terça, Quinta e Sábado' };
+      }
+      // Setores Especiais
+      else if (b === 'distrito de piquirivaí') {
+        comum = { horario: '7:00 horas', dias: 'Terça e Sexta-feira' };
+      }
+      else if (['usina mourão', 'parque lago azul'].includes(b)) {
+        comum = { horario: '7:00 horas', dias: 'Segunda e Sexta-feira' };
+      }
+      else if (['barreiro das frutas', 'são benedito', 'santa lúcia', 'alto alegre', 
+                'boa esperança'].includes(b)) {
+        comum = { horario: '7:00 horas', dias: 'Última quinta-feira de cada mês' };
+      }
+
+      // Valores padrão se não encontrar
+      if (!seletiva.horario) {
+        seletiva = { horario: 'Não disponível', dias: 'Consulte a prefeitura' };
+      }
+      if (!comum.horario) {
+        comum = { horario: 'Não disponível', dias: 'Consulte a prefeitura' };
+      }
+
+      return { seletiva, comum };
+    
+
+    clearBtn.addEventListener('click', () => {
+      input.value = '';
+      input.focus();
+      suggestionsBox.classList.remove('show');
+      resultsBox.classList.remove('show');
+      clearBtn.style.display = 'none';
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.search-container')) {
+        suggestionsBox.classList.remove('show');
+      }
+    });
+
     </script>
 </body>
 </html>
