@@ -2257,3 +2257,278 @@ body.light-mode .info-card {
 .slide[data-slide="4"] {
   position: relative;
 }
+
+/* =========================================================
+   MOBILE-FIRST RESPONSIVENESS BOOST
+   ========================================================= */
+
+/* 1.  GLOBAL RESET FOR SMALL SCREENS
+----------------------------------------------------------- */
+@media (max-width: 1024px) {
+  :root {
+    --border-radius: 12px;
+    --transition: all .25s ease;
+  }
+  html, body {
+    overflow-x: hidden;          /* kill horizontal scroll */
+    font-size: 15px;             /* slightly bigger default */
+  }
+}
+
+/* 2.  HEADER & THEME TOGGLE
+----------------------------------------------------------- */
+@media (max-width: 768px) {
+  header img {
+    height: 110px !important;
+    max-width: 220px !important;
+  }
+  .theme-toggle {
+    top: 12px;
+    right: 12px;
+    padding: 8px 12px;
+    font-size: 0.75em;
+    gap: 6px;
+  }
+  .theme-icon {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+/* 3.  DASHBOARD SLIDER
+----------------------------------------------------------- */
+@media (max-width: 768px) {
+  .slider-container {
+    height: auto !important;     /* adapt to content */
+    min-height: 480px;
+  }
+  .slide {
+    flex-direction: column;
+    padding: 40px 20px 80px;   /* space for nav-dots */
+    gap: 30px;
+  }
+  .slide-content {
+    text-align: center;
+    align-items: center;
+  }
+  .slide-content h2 {
+    font-size: 1.8em;
+  }
+  .slide-content p {
+    font-size: 1.05em;
+  }
+  .slide-btn {
+    padding: 14px 28px;
+    font-size: 1em;
+  }
+  .slide-visual {
+    flex: 0 0 auto;
+    height: 180px;
+  }
+  .visual-icon {
+    font-size: 100px;
+  }
+  /* botão flutuante do ReciclaBot no slide 4 */
+  .reciclabot-icon-flutuante {
+    width: 160px;
+    bottom: 15px;
+    right: 15px;
+  }
+}
+
+/* 4.  QUICK ACCESS CARDS
+----------------------------------------------------------- */
+@media (max-width: 768px) {
+  .quick-cards {
+    gap: 15px;
+  }
+  .quick-card {
+    flex: 1 1 140px;
+    padding: 20px 15px;
+    font-size: 0.95em;
+  }
+  .quick-icon {
+    font-size: 2.2em;
+  }
+}
+
+/* 5.  INTERNAL PAGES (conteúdo)
+----------------------------------------------------------- */
+@media (max-width: 768px) {
+  main.content {
+    margin: 20px 10px;
+    padding: 30px 20px;
+  }
+  .page-title {
+    font-size: 1.9em;
+  }
+  .section {
+    padding: 25px 20px;
+  }
+  .section h2 {
+    font-size: 1.5em;
+  }
+  .btn {
+    padding: 14px 26px;
+    font-size: 1em;
+    margin: 6px 0;
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* 6.  ESCOLAS / CARDS-ESCOLAS
+----------------------------------------------------------- */
+@media (max-width: 768px) {
+  .cards-escolas-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .card-escola {
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
+/* 7.  SEARCH & SUGGESTIONS (coleta.html)
+----------------------------------------------------------- */
+@media (max-width: 768px) {
+  .search-input {
+    font-size: 1em;
+    padding: 14px 45px 14px 16px;
+  }
+  .suggestions {
+    max-height: 220px;
+  }
+  .result-card h2 {
+    font-size: 1.4em;
+  }
+  .info-cards {
+    flex-direction: column;
+  }
+  .info-card {
+    flex: 1 1 100%;
+  }
+}
+
+/* 8.  FOOTER
+----------------------------------------------------------- */
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 25px;
+  }
+  .footer-logo img {
+    max-width: 160px;
+  }
+  .footer-info,
+  .footer-contact {
+    align-items: center;
+  }
+  .social-link {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* 9.  VERY SMALL PHONES (≤ 360 px)
+----------------------------------------------------------- */
+@media (max-width: 360px) {
+  html, body {
+    font-size: 14px;
+  }
+  header img {
+    height: 90px !important;
+  }
+  .slide-content h2 {
+    font-size: 1.5em;
+  }
+  .visual-icon {
+    font-size: 80px;
+  }
+  .quick-card {
+    flex: 1 1 120px;
+    padding: 15px 10px;
+  }
+  .btn {
+    font-size: 0.95em;
+    padding: 12px 20px;
+  }
+  .reciclabot-icon-flutuante {
+    width: 130px;
+  }
+}
+
+/* 10.  REDUCE MOTION (accessibility)
+----------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* =========================================================
+   MOBILE SLIDE LAYOUT FIX
+   ---------------------------------------------------------
+   Icon  →  paragraph  →  button  (vertical stack)
+   ========================================================= */
+
+@media (max-width: 768px) {
+  /* 1.  Make the slide a vertical flex column */
+  .slide {
+    flex-direction: column !important;
+    justify-content: flex-start;
+    padding: 40px 20px 80px; /* leave space for nav-dots */
+  }
+
+  /* 2.  Force the order: text first, icon second, button third */
+  .slide-content {
+    order: 1;
+    width: 100%;
+    text-align: center;
+    align-items: center;   /* center the button */
+  }
+
+  .slide-visual {
+    order: 2;
+    width: 100%;
+    height: auto;
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  /* 3.  Shrink the floating ReciclaBot so it never covers the button */
+  .reciclabot-icon-flutuante {
+    position: static !important; /* remove absolute */
+    order: 3;
+    width: 140px;
+    margin: 10px auto 0;
+    transform: none !important;
+  }
+
+  /* 4.  Button stays centered below the icon */
+  .slide-btn {
+    order: 4;
+    align-self: center;
+    margin-top: 15px;
+  }
+}
+
+/* 5.  Very small phones (≤ 360 px) */
+@media (max-width: 360px) {
+  .slide-content h2 {
+    font-size: 1.5em;
+  }
+  .slide-content p {
+    font-size: 1em;
+  }
+  .visual-icon {
+    font-size: 80px;
+  }
+  .reciclabot-icon-flutuante {
+    width: 120px;
+  }
+}
