@@ -256,27 +256,6 @@
       suggestionsBox.classList.add('show');
     });
 
-    // Navegação por teclado
-    input.addEventListener('keydown', function(e) {
-      const items = suggestionsBox.querySelectorAll('.suggestion-item');
-      
-      if (e.key === 'ArrowDown') {
-        e.preventDefault();
-        currentFocus++;
-        addActive(items);
-      } else if (e.key === 'ArrowUp') {
-        e.preventDefault();
-        currentFocus--;
-        addActive(items);
-      } else if (e.key === 'Enter') {
-        e.preventDefault();
-        if (currentFocus > -1 && items[currentFocus]) {
-          items[currentFocus].click();
-        }
-      } else if (e.key === 'Escape') {
-        suggestionsBox.classList.remove('show');
-      }
-    });
 
     function addActive(items) {
       if (!items.length) return;
@@ -293,16 +272,25 @@
       items.forEach(item => item.classList.remove('active'));
     }
 
-    function selectBairro(bairro) {
-      input.value = bairro;
-      bairroName.textContent = bairro;
-      selectedBox.classList.add('show');
-      suggestionsBox.classList.remove('show');
-      clearBtn.style.display = 'block';
-      
-      // Aqui você pode fazer o que quiser com o bairro selecionado
-      console.log('Bairro selecionado:', bairro);
-    }
+   function selectBairro(bairro) {
+  input.value = bairro;
+  bairroName.textContent = bairro;
+  selectedBox.classList.add('show');
+  suggestionsBox.classList.remove('show');
+  clearBtn.style.display = 'block';
+  
+  console.log('Bairro selecionado:', bairro);
+
+  // Obter os horários e dias do bairro
+  const resultados = obterHorarios(bairro.toLowerCase());
+
+  // Atualizar os elementos na tela
+  document.getElementById('horarioSeletiva').textContent = resultados.seletiva.horario;
+  document.getElementById('diasSeletiva').textContent = resultados.seletiva.dias;
+  document.getElementById('horarioComum').textContent = resultados.comum.horario;
+  document.getElementById('diasComum').textContent = resultados.comum.dias;
+}
+
 
     clearBtn.addEventListener('click', () => {
       input.value = '';
@@ -320,102 +308,94 @@
     });
 
     //if and else resultados do select
-    // COLETA SELETIVA
-      // Quarta e Sábado
-      if (['centro', 'são pedro', 'curitiba', 'são sebastião', 'santa nilce i', 'vila urupês', 
-           'zoraide', 'são joão', 'paraíso do campo', 'joana d\'arc', 'villaggio trombini', 
-           'aurora', 'ana elisa', 'constantino', 'antonio toledo silveira', 'vila guarujá', 
-           'distrito de piquirivaí'].includes(b)) {
-        seletiva = { horario: 'A partir das 8:00 horas', dias: 'Quarta-feira e Sábado' };
-      }
-      // Segunda e Sexta
-      else if (['conrado', 'isabel', 'três marias', 'maria clara', 'ilha bela', 'brasília', 
-                'corinthians', 'nossa senhora aparecida', 'albuquerque', 'san marino', 'kimberlim', 
-                'village das hortênsias', 'parigot de souza', 'paulista', 'aeroporto', 
-                'flor do campo', 'condor', 'vila nova', 'montes claros', 'diamante azul', 
-                'tropical i e ii', 'avelino piacentini', 'américa', 'silvana', 'josé richa', 
-                'esperança', 'mário figueiredo', 'batel', 'santa cruz', 'modelo', 'cidade nova', 
-                'santa nilce ii', 'mundo novo', 'verdes campos', 'alvorada', 'bandeirantes', 
-                'piacentini', 'cidade alta', 'antilhas', 'primavera', 'serrado do campo', 
-                'cj. milton de paula xavier', 'sol nascente', 'jardim imperial'].includes(b)) {
-        seletiva = { horario: 'A partir das 8:00 horas', dias: 'Segunda-feira e Sexta-feira' };
-      }
-      // Terça e Quinta
-      else if (['laura', 'flórida', 'country clube', 'vila teixeira', 'lourdes', 'shangrilá', 
-                'flora i e ii', 'gutierrez', 'vitória régia', 'residencial do lago', 'araucária', 
-                'casali', 'botânico', 'marino emer', 'maia i e ii', 'capricórnio', 'copacabana', 
-                'orly', 'vila rio grande', 'tomasi', 'lopes', 'voidelo', 'ione', 'alcântara', 
-                'horizonte', 'j kennedy', 'cidade verde', 'vitória', 'lar paraná', 'europa', 
-                'vila cândida', 'indianópolis', 'pio xii', 'milton luiz pereira', 'tancredo neves', 
-                'mendes', 'parque verde', 'acácias', 'são francisco', 'maria barleta', 'ipê', 
-                'damasco', 'fernando', 'paulino', 'são luiz', 'parque industrial'].includes(b)) {
-        seletiva = { horario: 'A partir das 8:00 horas', dias: 'Terça-feira e Quinta-feira' };
-      }
-      // Frequência Mensal
-      else if (['barreiro das frutas', 'boa esperança', 'vila rural', 'usina mourão', 
-                'alto alegre', 'santa lúcia', 'são benedito'].includes(b)) {
-        seletiva = { horario: 'A partir das 8:00 horas', dias: 'Frequência Mensal' };
-      }
+    function obterHorarios(b) {
+  let seletiva = {};
+  let comum = {};
 
-      // COLETA COMUM
-      // Setor Noturno (18:00) - Segunda a Sábado
-      if (['centro', 'são pedro', 'curitiba', 'são sebastião', 'santa nilce i', 'urupês', 
-           'zoraide', 'são joão', 'paraíso do campo', 'joana d\'arc', 'aurora', 'ana elisa', 
-           'constantino', 'antonio toledo silveira'].includes(b)) {
-        comum = { horario: '18:00 horas', dias: 'Segunda a Sábado' };
-      }
-      // Setor Diurno (7:00) - Segunda, Quarta e Sexta
-      else if (['lar paraná', 'cândida', 'indianópolis', 'pio xii', 'milton luiz pereira', 
-                'tancredo neves', 'mendes', 'parque verde', 'europa', 'acácias', 'são francisco', 
-                'maria barleta', 'ipê', 'damasco', 'fernando', 'paulino', 'são luiz', 
-                'parque industrial', 'copacabana', 'orly', 'rio grande', 'tomasi', 'lopes', 
-                'voidelo', 'ione', 'alcântara', 'horizonte', 'j kennedy', 'cidade verde', 
-                'vila rural', 'vitória'].includes(b)) {
-        comum = { horario: '7:00 horas', dias: 'Segunda, Quarta e Sexta-feira' };
-      }
-      // Setor Diurno (17:00) - Segunda, Quarta e Sexta
-      else if (['laura', 'flórida', 'country clube', 'teixeira', 'lourdes', 'shangrilá', 
-                'flora i e ii', 'gutierrez', 'vitória régia', 'residencial do lago', 'araucária', 
-                'casali', 'botânico', 'marino emer', 'maia i e ii', 'capricórnio'].includes(b)) {
-        comum = { horario: '17:00 horas', dias: 'Segunda, Quarta e Sexta-feira' };
-      }
-      // Setor Diurno (7:00) - Terça, Quinta e Sábado
-      else if (['cidade nova', 'fortunato perdoncini', 'santa nilce ii', 'verdes campos', 
-                'alvorada', 'bandeirantes', 'piacentini', 'cidade alta', 'mundo novo', 'antilhas', 
-                'primavera', 'modelo', 'cj. milton de paula walter', 'santa cruz', 'batel', 
-                'mário figueiredo', 'esperança', 'josé richa', 'parigot de souza', 'paulista', 
-                'aeroporto', 'flor do campo', 'condor', 'vila nova', 'montes claros', 
-                'diamante azul', 'tropical i e ii', 'avelino piacentini', 'américa', 
-                'serrado do campo', 'silvana'].includes(b)) {
-        comum = { horario: '7:00 horas', dias: 'Terça, Quinta e Sábado' };
-      }
-      // Setor Diurno (17:00) - Terça, Quinta e Sábado
-      else if (['conrado', 'isabel', 'três marias', 'trombini', 'maria clara', 'ilha bela', 
-                'brasília', 'corinthians', 'nossa senhora aparecida', 'albuquerque', 'san marino', 
-                'kimberlim', 'village das hortênsias'].includes(b)) {
-        comum = { horario: '17:00 horas', dias: 'Terça, Quinta e Sábado' };
-      }
-      // Setores Especiais
-      else if (b === 'distrito de piquirivaí') {
-        comum = { horario: '7:00 horas', dias: 'Terça e Sexta-feira' };
-      }
-      else if (['usina mourão', 'parque lago azul'].includes(b)) {
-        comum = { horario: '7:00 horas', dias: 'Segunda e Sexta-feira' };
-      }
-      else if (['barreiro das frutas', 'são benedito', 'santa lúcia', 'alto alegre', 
-                'boa esperança'].includes(b)) {
-        comum = { horario: '7:00 horas', dias: 'Última quinta-feira de cada mês' };
-      }
+  // COLETA SELETIVA
+  if (['centro', 'são pedro', 'curitiba', 'são sebastião', 'santa nilce i', 'vila urupês', 
+       'zoraide', 'são joão', 'paraíso do campo', 'joana d\'arc', 'villaggio trombini', 
+       'aurora', 'ana elisa', 'constantino', 'antonio toledo silveira', 'vila guarujá', 
+       'distrito de piquirivaí'].includes(b)) {
+    seletiva = { horario: 'A partir das 8:00 horas', dias: 'Quarta-feira e Sábado' };
+  }
+  else if (['conrado', 'isabel', 'três marias', 'maria clara', 'ilha bela', 'brasília', 
+            'corinthians', 'nossa senhora aparecida', 'albuquerque', 'san marino', 'kimberlim', 
+            'village das hortênsias', 'parigot de souza', 'paulista', 'aeroporto', 
+            'flor do campo', 'condor', 'vila nova', 'montes claros', 'diamante azul', 
+            'tropical i e ii', 'avelino piacentini', 'américa', 'silvana', 'josé richa', 
+            'esperança', 'mário figueiredo', 'batel', 'santa cruz', 'modelo', 'cidade nova', 
+            'santa nilce ii', 'mundo novo', 'verdes campos', 'alvorada', 'bandeirantes', 
+            'piacentini', 'cidade alta', 'antilhas', 'primavera', 'serrado do campo', 
+            'cj. milton de paula xavier', 'sol nascente', 'jardim imperial'].includes(b)) {
+    seletiva = { horario: 'A partir das 8:00 horas', dias: 'Segunda-feira e Sexta-feira' };
+  }
+  else if (['laura', 'flórida', 'country clube', 'vila teixeira', 'lourdes', 'shangrilá', 
+            'flora i e ii', 'gutierrez', 'vitória régia', 'residencial do lago', 'araucária', 
+            'casali', 'botânico', 'marino emer', 'maia i e ii', 'capricórnio', 'copacabana', 
+            'orly', 'vila rio grande', 'tomasi', 'lopes', 'voidelo', 'ione', 'alcântara', 
+            'horizonte', 'j kennedy', 'cidade verde', 'vitória', 'lar paraná', 'europa', 
+            'vila cândida', 'indianópolis', 'pio xii', 'milton luiz pereira', 'tancredo neves', 
+            'mendes', 'parque verde', 'acácias', 'são francisco', 'maria barleta', 'ipê', 
+            'damasco', 'fernando', 'paulino', 'são luiz', 'parque industrial'].includes(b)) {
+    seletiva = { horario: 'A partir das 8:00 horas', dias: 'Terça-feira e Quinta-feira' };
+  }
+  else if (['barreiro das frutas', 'boa esperança', 'vila rural', 'usina mourão', 
+            'alto alegre', 'santa lúcia', 'são benedito'].includes(b)) {
+    seletiva = { horario: 'A partir das 8:00 horas', dias: 'Frequência Mensal' };
+  }
 
-      // Valores padrão se não encontrar
-      if (!seletiva.horario) {
-        seletiva = { horario: 'Não disponível', dias: 'Consulte a prefeitura' };
-      }
-      if (!comum.horario) {
-        comum = { horario: 'Não disponível', dias: 'Consulte a prefeitura' };
-      }
+  // COLETA COMUM
+  if (['centro', 'são pedro', 'curitiba', 'são sebastião', 'santa nilce i', 'urupês', 
+       'zoraide', 'são joão', 'paraíso do campo', 'joana d\'arc', 'aurora', 'ana elisa', 
+       'constantino', 'antonio toledo silveira'].includes(b)) {
+    comum = { horario: '18:00 horas', dias: 'Segunda a Sábado' };
+  }
+  else if (['lar paraná', 'cândida', 'indianópolis', 'pio xii', 'milton luiz pereira', 
+            'tancredo neves', 'mendes', 'parque verde', 'europa', 'acácias', 'são francisco', 
+            'maria barleta', 'ipê', 'damasco', 'fernando', 'paulino', 'são luiz', 
+            'parque industrial', 'copacabana', 'orly', 'rio grande', 'tomasi', 'lopes', 
+            'voidelo', 'ione', 'alcântara', 'horizonte', 'j kennedy', 'cidade verde', 
+            'vila rural', 'vitória'].includes(b)) {
+    comum = { horario: '7:00 horas', dias: 'Segunda, Quarta e Sexta-feira' };
+  }
+  else if (['laura', 'flórida', 'country clube', 'teixeira', 'lourdes', 'shangrilá', 
+            'flora i e ii', 'gutierrez', 'vitória régia', 'residencial do lago', 'araucária', 
+            'casali', 'botânico', 'marino emer', 'maia i e ii', 'capricórnio'].includes(b)) {
+    comum = { horario: '17:00 horas', dias: 'Segunda, Quarta e Sexta-feira' };
+  }
+  else if (['cidade nova', 'fortunato perdoncini', 'santa nilce ii', 'verdes campos', 
+            'alvorada', 'bandeirantes', 'piacentini', 'cidade alta', 'mundo novo', 'antilhas', 
+            'primavera', 'modelo', 'cj. milton de paula walter', 'santa cruz', 'batel', 
+            'mário figueiredo', 'esperança', 'josé richa', 'parigot de souza', 'paulista', 
+            'aeroporto', 'flor do campo', 'condor', 'vila nova', 'montes claros', 
+            'diamante azul', 'tropical i e ii', 'avelino piacentini', 'américa', 
+            'serrado do campo', 'silvana'].includes(b)) {
+    comum = { horario: '7:00 horas', dias: 'Terça, Quinta e Sábado' };
+  }
+  else if (['conrado', 'isabel', 'três marias', 'trombini', 'maria clara', 'ilha bela', 
+            'brasília', 'corinthians', 'nossa senhora aparecida', 'albuquerque', 'san marino', 
+            'kimberlim', 'village das hortênsias'].includes(b)) {
+    comum = { horario: '17:00 horas', dias: 'Terça, Quinta e Sábado' };
+  }
+  else if (b === 'distrito de piquirivaí') {
+    comum = { horario: '7:00 horas', dias: 'Terça e Sexta-feira' };
+  }
+  else if (['usina mourão', 'parque lago azul'].includes(b)) {
+    comum = { horario: '7:00 horas', dias: 'Segunda e Sexta-feira' };
+  }
+  else if (['barreiro das frutas', 'são benedito', 'santa lúcia', 'alto alegre', 
+            'boa esperança'].includes(b)) {
+    comum = { horario: '7:00 horas', dias: 'Última quinta-feira de cada mês' };
+  }
 
-      return { seletiva, comum };
+  // Valores padrão
+  if (!seletiva.horario) seletiva = { horario: 'Não disponível', dias: 'Consulte a prefeitura' };
+  if (!comum.horario) comum = { horario: 'Não disponível', dias: 'Consulte a prefeitura' };
+
+  return { seletiva, comum };
+}
+
     
 
     clearBtn.addEventListener('click', () => {
